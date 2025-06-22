@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Записаться - Говорю и слушаю</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: linen;
+            color: #333;
+        }
+        
+        body.dark-theme {
+            background-color: #222;
+            color: #f0f0f0;
+        }
+        
+        header {
+            background-color: #4CAF50;
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+				header h1 {
+    font-size: 2.5em;
+    margin: 10px 0; 
+}
+
+header p {
+    font-size: 1.3em;
+    margin: 0;
+}        
+        nav {
+            background-color: #FF9800;
+            padding: 10px;
+            text-align: center;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+        
+        .main-content {
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+        
+        .signup-form {
+            background-color: snow;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        body.dark-theme .signup-form {
+            background-color: #333;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        
+        button[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+		
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+		
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" id="themeToggle">Тёмная тема</button>
+    
+    <header>
+        <h1>Говорю и слушаю</h1>
+        <p>Детская студия развития речи</p>
+    </header>
+    
+    <nav>
+        <a href="index.html">Главная</a>
+        <a href="programs.html">Программы</a>
+        <a href="teachers.html">Педагоги</a>
+		<a href="check.html">Чек-лист</a>
+        <a href="signup.html">Записаться</a>
+        <a href="contact.html">Контакты</a>
+    </nav>
+    
+    <div class="main-content">
+        <h2>Записаться на занятие</h2>
+        
+        <form class="signup-form" id="signupForm">
+            <div class="form-group">
+                <label for="name">Имя ребенка:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="age">Возраст ребенка:</label>
+                <input type="number" id="age" name="age" min="1" max="18" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="parent">Имя родителя:</label>
+                <input type="text" id="parent" name="parent" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="phone">Номер телефона:</label>
+                <input type="tel" id="phone" name="phone" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="program">Выберите программу:</label>
+                <select id="program" name="program" required>
+                    <option value="">-- Выберите программу --</option>
+                    <option value="Творческие занятия (3-5 лет)">Творческие занятия (3-5 лет)</option>
+                    <option value="Подготовка к школе (5-6 лет)">Подготовка к школе (5-6 лет)</option>
+                    <option value="Коррекция звукопроизношения">Коррекция звукопроизношения</option>
+                    <option value="Запуск речи">Запуск речи</option>
+					<option value="Запуск речи">Консультация</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="message">Дополнительная информация:</label>
+                <textarea id="message" name="message" rows="4" style="width: 100%;"></textarea>
+            </div>
+            
+            <button type="submit">Отправить заявку</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('themeToggle').addEventListener('click', function() {
+            document.body.classList.toggle('dark-theme');
+            this.textContent = document.body.classList.contains('dark-theme') ? 'Светлая тема' : 'Тёмная тема';
+            localStorage.setItem('theme', document.body.classList.contains('dark-theme') ? 'dark' : 'light');
+        });
+
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-theme');
+            document.getElementById('themeToggle').textContent = 'Светлая тема';
+        }
+
+
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+
+            alert('Ваша заявка принята! Мы свяжемся с вами в ближайшее время.');
+            this.reset();
+        });
+    </script>
+</body>
+</html>

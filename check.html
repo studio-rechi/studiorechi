@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Чек-лист речевого развития - Говорю и слушаю</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background-color: linen;
+            min-height: 100vh;
+        }
+        
+        body.dark-theme {
+            background-color: #222;
+            color: #f0f0f0;
+        }
+        
+        header {
+            background-color: #4CAF50;
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+        		header h1 {
+    font-size: 2.5em;
+    margin: 10px 0; 
+}
+
+header p {
+    font-size: 1.3em;
+    margin: 0; 
+}
+
+        nav {
+            background-color: #FF9800;
+            padding: 10px;
+            text-align: center;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+        
+        .main-content {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .checklist {
+            background-color: snow;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        
+        body.dark-theme .checklist {
+            background-color: #333;
+        }
+        
+        .question {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        body.dark-theme .question {
+            border-bottom-color: #444;
+        }
+        
+        .question h3 {
+            color: #4CAF50;
+            margin-top: 0;
+        }
+        
+        body.dark-theme .question h3 {
+            color: #8BC34A;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            transition: all 0.3s;
+            margin-top: 15px;
+        }
+        
+        .btn:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+        }
+        
+        .result {
+            display: none;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: center;
+            font-size: 1.2em;
+        }
+        
+        .result.good {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+        
+        .result.average {
+            background-color: #fff8e1;
+            color: #ff8f00;
+        }
+        
+        .result.bad {
+            background-color: #ffebee;
+            color: #c62828;
+        }
+        
+        body.dark-theme .result.good {
+            background-color: #1b5e20;
+            color: #e8f5e9;
+        }
+        
+        body.dark-theme .result.average {
+            background-color: #ff6f00;
+            color: #fff8e1;
+        }
+        
+        body.dark-theme .result.bad {
+            background-color: #b71c1c;
+            color: #ffebee;
+        }
+        
+        .age-selector {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        select {
+            padding: 8px 15px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-family: inherit;
+            font-size: 1em;
+        }
+        
+        body.dark-theme select {
+            background-color: #444;
+            color: white;
+            border-color: #666;
+        }
+        
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" id="themeToggle">Тёмная тема</button>
+    
+    <header>
+        <h1>Говорю и слушаю</h1>
+        <p>Детская студия развития речи</p>
+    </header>
+    
+    <nav>
+        <a href="index.html">Главная</a>
+        <a href="programs.html">Программы</a>
+        <a href="teachers.html">Педагоги</a>
+        <a href="checklist.html">Чек-лист</a>
+        <a href="signup.html">Записаться</a>
+        <a href="contact.html">Контакты</a>
+    </nav>
+    
+    <div class="main-content">
+        <h2>Чек-лист речевого развития</h2>
+        <p>Пройдите тест, чтобы оценить речевое развитие вашего ребенка и понять, нужна ли консультация логопеда.</p>
+        
+        <div class="age-selector">
+            <label for="age">Возраст ребенка:</label>
+            <select id="age">
+                <option value="2">2 года</option>
+                <option value="3">3 года</option>
+                <option value="4">4 года</option>
+                <option value="5">5 лет</option>
+                <option value="6">6 лет</option>
+            </select>
+        </div>
+        
+        <div class="checklist">
+            <div class="question">
+                <h3>1. Сколько слов говорит ребенок?</h3>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q1" value="3"> Более 50 слов (для 2 лет), более 200 слов (3 года), более 1000 слов (4-6 лет)
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q1" value="2"> Около 20-30 слов (2 года), 100-150 слов (3 года), 500-800 слов (4-6 лет)
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q1" value="1"> Менее 10 слов (2 года), менее 50 слов (3 года), менее 200 слов (4-6 лет)
+                    </label>
+                </div>
+            </div>
+            
+            <div class="question">
+                <h3>2. Как ребенок строит предложения?</h3>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q2" value="3"> Строит сложные предложения (с 3 лет)
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q2" value="2"> Строит простые предложения из 2-3 слов (с 2 лет)
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q2" value="1"> Использует только отдельные слова или звуки
+                    </label>
+                </div>
+            </div>
+            
+            <div class="question">
+                <h3>3. Насколько понятна речь ребенка?</h3>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q3" value="3"> Речь понятна даже незнакомым людям
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q3" value="2"> Речь понятна в основном родителям
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q3" value="1"> Речь практически непонятна
+                    </label>
+                </div>
+            </div>
+            
+            <div class="question">
+                <h3>4. Как ребенок произносит звуки?</h3>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q4" value="3"> Произносит все звуки соответственно возрасту
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q4" value="2"> Есть небольшие проблемы с 1-2 звуками
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q4" value="1"> Многие звуки произносит неправильно
+                    </label>
+                </div>
+            </div>
+            
+            <div class="question">
+                <h3>5. Как ребенок понимает обращенную речь?</h3>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q5" value="3"> Понимает сложные инструкции и вопросы
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q5" value="2"> Понимает простые просьбы и вопросы
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q5" value="1"> С трудом понимает даже простые просьбы
+                    </label>
+                </div>
+            </div>
+            
+            <button class="btn" id="checkResults">Проверить результаты</button>
+            
+            <div id="result" class="result"></div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('themeToggle').addEventListener('click', function() {
+            document.body.classList.toggle('dark-theme');
+            this.textContent = document.body.classList.contains('dark-theme') ? 'Светлая тема' : 'Тёмная тема';
+            localStorage.setItem('theme', document.body.classList.contains('dark-theme') ? 'dark' : 'light');
+        });
+
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-theme');
+            document.getElementById('themeToggle').textContent = 'Светлая тема';
+        }
+
+
+        document.getElementById('checkResults').addEventListener('click', function() {
+            const questions = document.querySelectorAll('.question');
+            let totalScore = 0;
+            let answeredAll = true;
+            
+            questions.forEach((question, index) => {
+                const selectedOption = question.querySelector('input[type="radio"]:checked');
+                if (!selectedOption) {
+                    answeredAll = false;
+                    return;
+                }
+                totalScore += parseInt(selectedOption.value);
+            });
+            
+            if (!answeredAll) {
+                alert('Пожалуйста, ответьте на все вопросы!');
+                return;
+            }
+            
+            const age = parseInt(document.getElementById('age').value);
+            const resultElement = document.getElementById('result');
+            resultElement.style.display = 'block';
+            
+
+            const ageNorms = {
+                2: 10, 
+                3: 12, 
+                4: 14, 
+                5: 15, 
+                6: 15  
+            };
+            
+            const minScore = ageNorms[age] || 12;
+            
+            if (totalScore >= minScore + 3) {
+                resultElement.className = 'result good';
+                resultElement.innerHTML = `
+                    <h3>Отличный результат!</h3>
+                    <p>Речевое развитие вашего ребенка соответствует возрасту. Продолжайте заниматься и развивать речь!</p>
+                    <p>Консультация логопеда на данный момент не требуется.</p>
+                `;
+            } else if (totalScore >= minScore - 2) {
+                resultElement.className = 'result average';
+                resultElement.innerHTML = `
+                    <h3>Есть небольшие отклонения</h3>
+                    <p>Речевое развитие вашего ребенка немного отстает от возрастной нормы.</p>
+                    <p>Рекомендуем проконсультироваться с логопедом для оценки ситуации.</p>
+                    <a href="signup.html" class="btn">Записаться на консультацию</a>
+                `;
+            } else {
+                resultElement.className = 'result bad';
+                resultElement.innerHTML = `
+                    <h3>Рекомендуется консультация логопеда</h3>
+                    <p>Речевое развитие вашего ребенка значительно отстает от возрастной нормы.</p>
+                    <p>Настоятельно рекомендуем как можно скорее записаться на консультацию к логопеду.</p>
+                    <a href="signup.html" class="btn">Записаться на консультацию</a>
+                `;
+            }
+            
+
+            resultElement.scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Программы - Говорю и слушаю</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: linen;
+            color: #333;
+        }
+        
+        body.dark-theme {
+            background-color: #222;
+            color: #f0f0f0;
+        }
+        
+        header {
+            background-color: #4CAF50;
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+        
+        header h1 {
+            font-size: 2.5em;
+            margin: 10px 0;
+        }
+
+        header p {
+            font-size: 1.3em;
+            margin: 0;
+        }       
+        
+        nav {
+            background-color: #FF9800;
+            padding: 10px;
+            text-align: center;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+        
+        .main-content {
+            padding: 20px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+        
+        .program-card {
+            background-color: snow;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+        
+        body.dark-theme .program-card {
+            background-color: #333;
+        }
+        
+        .price {
+            font-weight: bold;
+            color: #FF9800;
+        }
+        
+        body.dark-theme .price {
+            color: #FFC107;
+        }
+        
+        .filters {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .filter-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .filter-btn {
+            padding: 8px 15px;
+            background-color: #f0f0f0;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.5s;
+        }
+        
+        .filter-btn.active {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        body.dark-theme .filter-btn {
+            background-color: #444;
+            color: white;
+        }
+        
+        body.dark-theme .filter-btn.active {
+            background-color: #4CAF50;
+        }
+        
+        .price-filter {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        select {
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        
+        body.dark-theme select {
+            background-color: #333;
+            color: white;
+            border-color: #555;
+        }
+        
+        .program-type {
+            display: inline-block;
+            padding: 3px 8px;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 3px;
+            font-size: 0.8em;
+            margin-left: 10px;
+        }
+        
+        .individual {
+            background-color: #FF9800;
+        }
+        
+        .signup-btn {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" id="themeToggle">Тёмная тема</button>
+    
+    <header>
+        <h1>Говорю и слушаю</h1>
+        <p>Детская студия развития речи</p>
+    </header>
+    
+    <nav>
+        <a href="index.html">Главная</a>
+        <a href="programs.html">Программы</a>
+        <a href="teachers.html">Педагоги</a>
+        <a href="check.html">Чек-лист</a>
+        <a href="signup.html">Записаться</a>
+        <a href="contact.html">Контакты</a>
+    </nav>
+    
+    <div class="main-content">
+        <h2>Наши программы</h2>
+        
+        <div class="filters">
+            <div class="filter-group">
+                <span>Тип занятий:</span>
+                <button class="filter-btn active" data-filter="all">Все</button>
+                <button class="filter-btn" data-filter="group">Групповые</button>
+                <button class="filter-btn" data-filter="individual">Индивидуальные</button>
+            </div>
+            
+            <div class="price-filter">
+                <span>Цена:</span>
+                <select id="priceFilter">
+                    <option value="all">Любая</option>
+                    <option value="0-1000">До 1000 руб.</option>
+                    <option value="1000-1500">1000-1500 руб.</option>
+                    <option value="1500-2000">1500-2000 руб.</option>
+                    <option value="2000">От 2000 руб.</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="programs-container">
+            <div class="program-card" data-type="group" data-price="900">
+                <h3>Творческие занятия (3-5 лет)</h3>
+                <p>Занятия на развитие мелкой моторики и воображения</p>
+                <p class="price">900 руб.</p>
+                <a href="signup.html" class="signup-btn">Записаться</a>
+            </div>
+            
+            <div class="program-card" data-type="group" data-price="1000">
+                <h3>Подготовка к школе (5-6 лет)</h3>
+                <p>Комплексные занятия по развитию речи, обучению грамоте и коммуникации</p>
+                <p class="price">1000 руб.</p>
+                <a href="signup.html" class="signup-btn">Записаться</a>
+            </div>
+            
+            <div class="program-card" data-type="individual" data-price="1400">
+                <h3>Коррекция звукопроизношения</h3>
+                <p>Индивидуальные занятия с логопедом для исправления дефектов речи</p>
+                <p class="price">от 1400 руб.</p>
+                <a href="signup.html" class="signup-btn">Записаться</a>
+            </div>
+            
+            <div class="program-card" data-type="individual" data-price="1400">
+                <h3>Запуск речи</h3>
+                <p>Постановка речи для самых маленьких</p>
+                <p class="price">от 1400 руб.</p>
+                <a href="signup.html" class="signup-btn">Записаться</a>
+            </div>
+            
+            <div class="program-card" data-type="individual" data-price="1700">
+                <h3>Консультация</h3>
+                <p>Специалист смотрит на общее и речевое развитие ребёнка, составляет план занятий</p>
+                <p class="price">от 1700 руб.</p>
+                <a href="signup.html" class="signup-btn">Записаться</a>
+            </div>		
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('themeToggle').addEventListener('click', function() {
+            document.body.classList.toggle('dark-theme');
+            this.textContent = document.body.classList.contains('dark-theme') ? 'Светлая тема' : 'Тёмная тема';
+            localStorage.setItem('theme', document.body.classList.contains('dark-theme') ? 'dark' : 'light');
+        });
+
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-theme');
+            document.getElementById('themeToggle').textContent = 'Светлая тема';
+        }
+
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const priceFilter = document.getElementById('priceFilter');
+        const programCards = document.querySelectorAll('.program-card');
+        
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+
+                filterBtns.forEach(b => b.classList.remove('active'));
+
+                this.classList.add('active');
+
+                filterPrograms();
+            });
+        });
+        
+
+        priceFilter.addEventListener('change', filterPrograms);
+        
+
+        function filterPrograms() {
+            const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
+            const priceRange = priceFilter.value;
+            
+            programCards.forEach(card => {
+                const type = card.dataset.type;
+                const price = parseInt(card.dataset.price);
+                let typeMatch = false;
+                let priceMatch = false;
+                
+
+                if (activeFilter === 'all' || activeFilter === type) {
+                    typeMatch = true;
+                }
+                
+
+                switch(priceRange) {
+                    case 'all':
+                        priceMatch = true;
+                        break;
+                    case '0-1000':
+                        priceMatch = price <= 1000;
+                        break;
+                    case '1000-1500':
+                        priceMatch = price >= 1000 && price <= 1500;
+                        break;
+                    case '1500-2000':
+                        priceMatch = price >= 1500 && price <= 2000;
+                        break;
+                    case '2000':
+                        priceMatch = price >= 2000;
+                        break;
+                }
+                
+
+                if (typeMatch && priceMatch) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
